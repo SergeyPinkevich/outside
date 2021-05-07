@@ -35,19 +35,13 @@ class StartPage extends StatelessWidget {
                 textAlign: TextAlign.center,
                 text: TextSpan(
                     text: "Find the ",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Poppins',
-                      fontSize: 40,
-                    ),
+                    style: Theme.of(context).textTheme.headline1,
                     children: [
                       TextSpan(
                         text: "Sun",
                         style: TextStyle(
                           color: Color.fromRGBO(239, 204, 0, 1),
                           fontWeight: FontWeight.w600,
-                          fontFamily: 'Poppins',
                           fontSize: 40,
                         ),
                       ),
@@ -61,14 +55,9 @@ class StartPage extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.fromLTRB(40, 16, 40, 40),
               child: Text(
-                "Don't give - there will be sun one day :)",
+                "Don't give up - there will be sun one day :)",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Poppins',
-                  fontSize: 16,
-                ),
+                style: Theme.of(context).textTheme.bodyText1,
               ),
             ),
           ),
@@ -107,12 +96,7 @@ class StartPage extends StatelessWidget {
                   child: Text(
                     "Get started",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Poppins',
-                      fontSize: 16,
-                    ),
+                    style: Theme.of(context).textTheme.button,
                   ),
                 ),
               ),
