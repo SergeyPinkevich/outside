@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class StartPage extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -20,6 +21,12 @@ class StartPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          Container(
+            height: 192,
+            width: 192,
+            child: SvgPicture.asset("assets/images/cloudy.svg"),
+            margin: EdgeInsets.fromLTRB(40, 0, 40, 48),
+          ),
           Material(
             color: Colors.transparent,
             child: Padding(
