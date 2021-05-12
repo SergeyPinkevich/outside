@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:outside/presentation/search.dart';
 import 'package:outside/presentation/start.dart';
 
 void main() {
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: StartPage(),
+      home: SearchPage(),
     );
   }
 }
