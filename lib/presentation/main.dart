@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:outside/presentation/search.dart';
-import 'package:outside/presentation/start.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
-void main() {
+Future main() async {
+  await DotEnv.load(fileName: Directory(".env").path);
   runApp(MyApp());
 }
 

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:outside/data/network/api.dart';
 import 'dart:async';
+
+import 'package:outside/domain/city.dart';
 
 class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -34,10 +37,12 @@ class SearchBarState extends State<SearchBar> {
   final searchController = TextEditingController();
   Timer debounce;
 
+  List<City> searchResults;
+
   @override
   void initState() {
     super.initState();
-    searchController.addListener(searchCityByName);
+    searchController.addListener(searchCityByQuery);
   }
 
   @override
@@ -91,13 +96,17 @@ class SearchBarState extends State<SearchBar> {
     );
   }
 
-  void searchCityByName() {
+  void searchCityByQuery() {
     if (debounce?.isActive ?? false) {
       debounce.cancel();
     }
-    debounce = Timer(debounceDuration, () {
-      // TODO make search request from here
-      print(searchController.text);
+    debounce = Timer(debounceDuration, () async {
+      String searchQuery = searchController.text;
+      bool shouldMakeSearch = searchQuery.isNotEmpty && searchQuery.length > 2;
+      if (shouldMakeSearch) {
+        searchResults = await searchCityByName(searchQuery);
+        print(searchResults.first.name);
+      }
     });
   }
 
