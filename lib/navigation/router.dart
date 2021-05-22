@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:outside/presentation/search.dart';
+import 'package:outside/presentation/search/search.dart';
 
 Route openSearchPage() {
   return PageRouteBuilder(

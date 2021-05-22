@@ -17,6 +17,6 @@ Future<List<City>> searchCityByName(String query) async {
     SearchCityResponseMapper responseMapper = SearchCityResponseMapper();
     return responseMapper.map(parsedResponse.cities);
   } else {
-    throw Exception('Failed to serch city by name');
+    throw Exception('Failed to search city by name');
   }
 }

@@ -10,8 +10,10 @@ class SearchCityResponseMapper {
             (foundCity) => City(
               id: foundCity.id,
               name: foundCity.name,
+              countryCode: foundCity.countryCode,
               location: _mapLocation(foundCity.location),
-              currentTemperature: foundCity.currentTemperature.toInt(),
+              currentTemperature:
+                  _convertKelvenToCelsius(foundCity.currentTemperature),
             ),
           )
           .toList();
@@ -25,5 +27,9 @@ class SearchCityResponseMapper {
       lattitude: entity.lattitude,
       longitude: entity.longitude,
     );
+  }
+
+  int _convertKelvenToCelsius(double kelvin) {
+    return (kelvin - 273.15).toInt();
   }
 }

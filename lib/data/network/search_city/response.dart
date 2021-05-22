@@ -15,12 +15,14 @@ class SearchCityResponse {
 class SearchCityEntity {
   final int id;
   final String name;
+  final String countryCode;
   final LocationEntity location;
   final double currentTemperature;
 
   SearchCityEntity({
     this.id,
     this.name,
+    this.countryCode,
     this.location,
     this.currentTemperature,
   });
@@ -29,6 +31,7 @@ class SearchCityEntity {
     return SearchCityEntity(
       id: json["id"] as int,
       name: json["name"] as String,
+      countryCode: json["sys"]["country"],
       location: LocationEntity.fromJson(json["coord"]),
       currentTemperature: json["main"]["temp"] as double,
     );
