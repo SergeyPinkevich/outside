@@ -35,6 +35,7 @@ class SearchContainer extends StatefulWidget {
 
 class SearchContainerState extends State<SearchContainer> {
   final Duration debounceDuration = Duration(milliseconds: 500);
+  Timer debounce;
 
   final searchController = TextEditingController();
 
@@ -70,12 +71,7 @@ class SearchContainerState extends State<SearchContainer> {
                         controller: searchController,
                         style: Theme.of(context).textTheme.bodyText1,
                         onChanged: (text) {
-                          var results = searchCityByQuery(text);
-                          // TODO remove debug logs
-                          results.then((value) => print(value.first.name));
-                          setState(() {
-                            _searchResults = results;
-                          });
+                          onSearchBarTextChaned(text);
                         },
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -135,16 +131,30 @@ class SearchContainerState extends State<SearchContainer> {
     );
   }
 
+  void onSearchBarTextChaned(String text) {
+    if (debounce?.isActive ?? false) {
+      debounce.cancel();
+    }
+    debounce = Timer(debounceDuration, () {
+      var results = searchCityByQuery(text);
+      setState(() {
+        _searchResults = results;
+      });
+    });
+  }
+
   Future<List<City>> searchCityByQuery(String searchQuery) async {
-    // TODO add debounce
     bool shouldMakeSearch = searchQuery.isNotEmpty && searchQuery.length > 2;
     if (shouldMakeSearch) {
       return searchCityByName(searchQuery);
+    } else {
+      return Future.value(List.empty());
     }
   }
 
   @override
   void dispose() {
+    debounce.cancel();
     searchController.dispose();
     super.dispose();
   }
