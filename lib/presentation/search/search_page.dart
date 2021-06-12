@@ -1,26 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:outside/data/network/api.dart';
-import 'package:outside/presentation/search/search_item.dart';
+import 'package:outside/domain/city.dart';
+import 'package:outside/presentation/base/page_title.dart';
+import 'package:outside/presentation/search/error_search_results.dart';
+import 'package:outside/presentation/search/empty_search_results.dart';
+import 'package:outside/presentation/search/search_result_item.dart';
 
 import 'dart:async';
-
-import 'package:outside/domain/city.dart';
 
 class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(16, 56, 16, 0),
-            child: Text(
-              "Choose your city",
-              style: Theme.of(context).textTheme.headline2,
-            ),
-          ),
+          PageTitle("Search results"),
           SearchContainer(),
         ],
       ),
@@ -52,6 +47,7 @@ class SearchContainerState extends State<SearchContainer> {
               height: 56,
               width: double.infinity,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
                     height: 24,
@@ -59,26 +55,31 @@ class SearchContainerState extends State<SearchContainer> {
                     margin: EdgeInsets.only(left: 16),
                     child: SvgPicture.asset("assets/images/search.svg"),
                   ),
-                  Container(
-                    width: 300,
-                    height: 56,
-                    margin: EdgeInsets.only(
-                      top: 4,
-                      left: 8,
-                    ),
-                    child: TextField(
-                        autofocus: true,
-                        controller: searchController,
-                        style: Theme.of(context).textTheme.bodyText1,
-                        onChanged: (text) {
-                          onSearchBarTextChaned(text);
-                        },
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'City name',
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 8),
+                      child: Container(
+                        width: double.infinity,
+                        height: 56,
+                        margin: EdgeInsets.only(
+                          top: 4,
+                          left: 8,
                         ),
-                        keyboardType: TextInputType.text),
-                  )
+                        child: TextField(
+                            autofocus: true,
+                            controller: searchController,
+                            style: Theme.of(context).textTheme.bodyText1,
+                            onChanged: (text) {
+                              onSearchBarTextChaned(text);
+                            },
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'City name',
+                            ),
+                            keyboardType: TextInputType.text),
+                      ),
+                    ),
+                  ),
                 ],
               ),
               decoration: BoxDecoration(
@@ -100,31 +101,35 @@ class SearchContainerState extends State<SearchContainer> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: FutureBuilder<List<City>>(
-                future: _searchResults,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    if (snapshot.hasData) {
-                      return GridView.builder(
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 200,
-                          mainAxisSpacing: 16,
-                          crossAxisSpacing: 16,
-                        ),
-                        shrinkWrap: true,
-                        itemCount:
-                            snapshot.data == null ? 0 : snapshot.data.length,
-                        itemBuilder: (BuildContext ctx, index) {
-                          return SearchResultItem(snapshot.data[index]);
-                        },
-                      );
-                    } else {
-                      return Text('${snapshot.error}');
-                    }
+              future: _searchResults,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData) {
+                    return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 200,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 16,
+                      ),
+                      shrinkWrap: true,
+                      itemCount:
+                          snapshot.data == null ? 0 : snapshot.data.length,
+                      itemBuilder: (BuildContext ctx, index) {
+                        return SearchResultItem(snapshot.data[index]);
+                      },
+                    );
+                  } else if (snapshot.hasError) {
+                    return ErrorSearchResults();
+                  } else {
+                    return EmptySearchResults();
                   }
-                  return Padding(
-                      padding: EdgeInsets.only(top: 48),
-                      child: CircularProgressIndicator());
-                }),
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                }
+                return Container();
+              },
+            ),
           ),
         ],
       ),
