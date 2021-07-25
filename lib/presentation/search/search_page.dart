@@ -119,13 +119,22 @@ class SearchContainerState extends State<SearchContainer> {
                       },
                     );
                   } else if (snapshot.hasError) {
-                    return ErrorSearchResults();
+                    return Padding(
+                      padding: EdgeInsets.only(top: 20),
+                      child: ErrorSearchResults(),
+                    );
                   } else {
-                    return EmptySearchResults();
+                    return Padding(
+                      padding: EdgeInsets.only(top: 20),
+                      child: EmptySearchResults(),
+                    );
                   }
                 }
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
+                  return Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: CircularProgressIndicator(),
+                  );
                 }
                 return Container();
               },
