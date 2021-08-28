@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:outside/presentation/home/home_page.dart';
 import 'package:outside/presentation/search/search_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
+import 'package:outside/presentation/start.dart';
 
 Future main() async {
   await DotEnv.load(fileName: Directory(".env").path);
@@ -29,11 +31,21 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.w700,
           ),
           headline3: TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+            fontWeight: FontWeight.w400,
+          ),
+          headline4: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
           bodyText1: TextStyle(
             fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: Colors.black87,
+          ),
+          bodyText2: TextStyle(
+            fontSize: 12,
             fontWeight: FontWeight.w500,
             color: Colors.black87,
           ),
@@ -49,7 +61,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: SearchPage(),
+      home: HomePage(),
     );
   }
 }

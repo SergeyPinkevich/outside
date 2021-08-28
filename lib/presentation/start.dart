@@ -24,9 +24,9 @@ class StartPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              height: 192,
-              width: 192,
-              child: SvgPicture.asset("assets/images/cloudy.svg"),
+              height: 256,
+              width: 256,
+              child: Image.asset("assets/images/start.png"),
               margin: EdgeInsets.fromLTRB(40, 0, 40, 48),
             ),
             Padding(

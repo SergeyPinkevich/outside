@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:outside/data/network/api.dart';
 import 'package:outside/domain/city.dart';
 import 'package:outside/presentation/base/page_title.dart';
+import 'package:outside/presentation/base/shadow.dart';
 import 'package:outside/presentation/search/error_search_results.dart';
 import 'package:outside/presentation/search/empty_search_results.dart';
 import 'package:outside/presentation/search/search_result_item.dart';
@@ -87,14 +88,7 @@ class SearchContainerState extends State<SearchContainer> {
                 borderRadius: BorderRadius.all(
                   Radius.circular(16),
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(88, 150, 253, 0.25),
-                    offset: Offset(0, 4.0),
-                    blurRadius: 15.0,
-                    spreadRadius: 2.0,
-                  ),
-                ],
+                boxShadow: [AppBoxShadow()],
               ),
             ),
           ),
