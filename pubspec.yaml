@@ -18,16 +18,26 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.17.4
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.12.2
-  flutter_svg: ^0.18.0
-  flutter_dotenv: ^3.1.0
+  http: ^0.13.0
+  flutter_svg: ^0.23.0+1
+  flutter_dotenv: ^5.0.2
   intl: ^0.16.0
   easy_gradient_text: ^1.0.0
+  build_runner: ^1.10.0
+  equatable: ^2.0.3
+  flutter_bloc: ^7.3.0
+  google_fonts: ^2.1.0
+  hydrated_bloc: ^7.1.0
+  json_annotation: ^4.0.0
+  path_provider: ^2.0.3
+  weather_repository:
+    path: packages/weather_repository
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -37,6 +47,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  bloc_test: ^8.3.0
+  json_serializable: ^4.0.0
+  mocktail: ^0.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
